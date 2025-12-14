@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HWÀN Stained Glass Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+TC:wght@500;700;900&display=swap');
+
+        /* NEW INVERTED HIGH-SATURATION PALETTE (反轉高飽和色系調色盤) */
+        :root {
+            --paper-pink: #000000; /* 背景: 純黑 (外) */
+            --border-black: #1a1a1a; /* 保持黑線條 */
+            --shadow-offset: 6px;
+            
+            /* 高飽和按鈕色 (Bright Saturated Colors) */
+            --btn-red: #e73a7a;    /* 亮莓紅 */
+            --btn-orange: #ff6f00; /* 亮橘色 */
+            --btn-yellow: #facc15; /* 亮黃色 */
+            --btn-green: #4ade80;  /* 亮薄荷綠 */
+            --btn-blue: #3b82f6;   /* 亮寶藍色 */
+            --container-bg: #FFFFFF; /* 主框: 純白 (內) */
+            --text-color: #1a1a1a; /* 主要文字顏色 (在白框上為黑色) */
+        }
+
+        body {
+            background-color: var(--paper-pink); /* 外部背景為黑色 */
+            font-family: 'Noto Sans TC', sans-serif; /* 主要中文字體 */
+            overflow-x: hidden;
+            /* subtle noise texture - WHITE noise on black background */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' seed='1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23FFFFFF' filter='url(%23f)' opacity='.07'/%3E%3C/svg%3E");
+        }
+
+        /* Neo-Brutalism Utility Classes (保持邊框和陰影不變) */
+        .neo-border {
+            border: 3px solid var(--border-black); 
+        }
+        
+        .neo-border-thick {
+            border: 4px solid var(--border-black);
+        }
+        
+        .neo-border-button {
+            border: 3px solid var(--border-black);
+        }
+
+        /* Hard drop shadow and active press effect */
+        .neo-shadow {
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px 0px var(--border-black);
+            transition: all 0.1s ease-in-out;
+        }
+
+        .neo-shadow:active {
+            transform: translate(var(--shadow-offset), var(--shadow-offset));
+            box-shadow: 0px 0px 0px 0px var(--border-black);
+        }
+
+        .neo-shadow-static {
+            box-shadow: 8px 8px 0px 0px var(--border-black);
+        }
+
+        .font-display {
+            font-family: 'Archivo Black', sans-serif; /* 專門用於英文標題的字體 (極粗黑體) */
+        }
+
+        /* Logo circle: Changed to full rounded for cute look */
+        .rounded-full-soft {
+            border-radius: 9999px;
+        }
+
+        /* Floating decoration animation (上下浮動) */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 5s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        .animate-float-short {
+            animation: float 3s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        /* NEW: Fade In/Out Pulse Animation (變淡變回來特效) */
+        @keyframes fadePulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .animate-fade-pulse {
+            animation: fadePulse 2s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<!-- 身體背景為黑色，選中文字顏色為白色 -->
+<body class="min-h-screen flex items-center justify-center p-4 relative selection:bg-white selection:text-black">
+
+    <!-- 外部漂浮裝飾物 (保持不變) -->
+    <!-- 1. Top Left Star/Blob (Bright Orange) -->
+    <div class="absolute top-10 left-10 text-[--btn-orange] opacity-100 animate-float hidden md:block">
+        <!-- 保持白色背景，讓圖案在黑底上更突出 -->
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="currentColor" class="neo-border-thick bg-white" style="border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;">
+             <!-- Star shape -->
+             <path d="M50 0 L61 35 L98 35 L68 57 L79 91 L50 70 L21 91 L32 57 L2 35 L39 35 Z" />
+        </svg>
+    </div>
+    
+    <!-- 2. Bottom Right Irregular Circle (Bright Blue) -->
+    <div class="absolute bottom-20 right-10 text-[--btn-blue] opacity-100 animate-float-delayed hidden md:block">
+        <!-- Irregular circle/blob shape -->
+        <div class="w-20 h-20 neo-border-thick bg-[--btn-blue]" style="border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;"></div>
+    </div>
+    
+    <!-- 3. Mid Left Red Circle (Bright Pink/Red) -->
+    <div class="absolute top-1/2 left-5 w-8 h-8 rounded-full bg-[--btn-red] neo-border hidden sm:block"></div>
+    
+    <!-- 4. Bottom Left Star Icon (Bright Yellow) -->
+    <div class="absolute bottom-10 left-1/4 text-4xl transform rotate-12 text-[--btn-yellow] animate-float-short">✦</div>
+    
+    <!-- 5. Top Right Star Icon (White on Black) -->
+    <div class="absolute top-20 right-1/4 text-5xl transform -rotate-12 text-white animate-float-delayed">✱</div>
+
+    <!-- NEW DECORATIONS (Colors changed to bright tones) -->
+    
+    <!-- 6. Top Right Small Square (Bright Green) -->
+    <div class="absolute top-8 right-8 w-6 h-6 neo-border bg-[--btn-green] rounded-lg transform rotate-3 animate-float-short"></div>
+
+    <!-- 7. Bottom Left Large Rounded Rectangle (Bright Yellow) -->
+    <div class="absolute bottom-5 left-5 w-16 h-8 neo-border bg-[--btn-yellow] rounded-xl transform -rotate-6 animate-float"></div>
+    
+    <!-- 8. Mid Right Orange Circle (Bright Orange) -->
+    <div class="absolute top-1/3 right-4 w-10 h-10 neo-border bg-[--btn-orange] rounded-full transform rotate-12 animate-float-delayed"></div>
+
+    <!-- 9. Mid Left Small Red Star (Bright Pink/Red) -->
+    <div class="absolute top-2/3 left-1/4 text-3xl transform -rotate-12 text-[--btn-red] animate-float">★</div>
+
+
+    <!-- Main Container (Background is now pure white) -->
+    <main class="w-full max-w-md relative z-10">
+        <!-- 使用純白容器背景色 -->
+        <div class="bg-[--container-bg] neo-border-thick neo-shadow-static rounded-[32px] p-6 md:p-8 flex flex-col items-center gap-6 relative overflow-hidden">
+            
+            <!-- --- START: 內部漂浮裝飾物 --- -->
+            
+            <!-- A. 內部 - 左上方小藍圓 (Bright Blue) -->
+            <div class="absolute top-6 left-6 w-5 h-5 rounded-full bg-[--btn-blue] neo-border animate-float-short"></div>
+
+            <!-- B. 內部 - 右下方小綠方塊 (Bright Green) -->
+            <div class="absolute bottom-10 right-8 w-6 h-6 neo-border bg-[--btn-green] rounded-lg transform rotate-6 animate-float-delayed"></div>
+            
+            <!-- C. 內部 - 左下方亮紅星 (Bright Red) -->
+            <div class="absolute bottom-1/4 left-8 text-xl transform -rotate-12 text-[--btn-red] animate-float">★</div>
+            
+            <!-- D. 內部 - 右上方亮黃色米字 (Bright Yellow) -->
+            <div class="absolute top-20 right-4 text-2xl transform rotate-45 text-[--btn-yellow] animate-float-short">✱</div>
+
+            <!-- F. 內部 - 下方黃色米字 (Bright Yellow) - 已往左移動 -->
+            <div class="absolute bottom-12 left-16 text-2xl transform -rotate-6 text-[--btn-yellow] animate-float-short">✱</div>
+
+            <!-- --- END: 內部漂浮裝飾物 --- -->
+
+
+            <!-- Subtle Texture Overlay: Tiny Stars and Dots (Dark stars on white background, low opacity) -->
+            <div class="absolute inset-0 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%231a1a1a\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M20 2l3 6l7 1l-5 4l1 7l-6-3l-6 3l1-7l-5-4l7-1z\'/%3E%3Ccircle cx=\'10\' cy=\'30\' r=\'1.5\'/%3E%3Ccircle cx=\'30\' cy=\'10\' r=\'1.5\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+            <!-- ********* END Subtle Texture Overlay ********* -->
+
+
+            <!-- Logo Section (Inner circle background is now white) -->
+            <div class="relative group cursor-default">
+                <!-- 內圈背景使用容器背景色 (白色) -->
+                <div class="w-32 h-32 bg-[--container-bg] neo-border-thick rounded-full-soft flex items-center justify-center relative z-10 overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                    <div class="flex flex-col items-center">
+                        <!-- Stylized star shapes (顏色已改為黑色) -->
+                        <svg width="60" height="40" viewBox="0 0 100 60" class="text-[--text-color] fill-current mb-1">
+                            <path d="M50 0 L65 30 L95 35 L65 45 L50 60 L35 45 L5 35 L35 30 Z" />
+                        </svg>
+                        <!-- HWÀN text (字體尺寸調整為適中的 2XL) -->
+                        <h1 class="font-display text-2xl tracking-tighter text-[--text-color] leading-none">HWÀN</h1>
+                    </div>
+                </div>
+                <!-- Offset circle decoration (顏色改為黑色) -->
+                <div class="absolute top-2 left-2 w-32 h-32 rounded-full border-4 border-dashed border-[--border-black] -z-0 opacity-50 group-hover:rotate-45 transition-transform duration-500"></div>
+            </div>
+
+            <!-- Title -->
+            <div class="text-center relative">
+                
+                <!-- Chinese Name '奐奐' -->
+                <h2 class="text-2xl text-[--text-color] tracking-wider font-extrabold mb-3 px-4" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.1);">
+                    奐奐
+                </h2>
+
+                <!-- NEW: English Description Row with pulsed asterisks -->
+                <div class="flex items-center justify-center">
+                    <!-- 左側米字圖案，帶有變淡變回來的特效 -->
+                    <div class="text-[--btn-red] text-xl mx-2 animate-fade-pulse">✱</div>
+
+                    <!-- English Description Text -->
+                    <h3 class="font-display text-lg md:text-xl text-[--text-color] tracking-wide md:tracking-widest uppercase" style="text-shadow: 1px 1px 0px rgba(0,0,0,0.1);">
+                        STAINED GLASS STUDIO
+                    </h3>
+
+                    <!-- 右側米字圖案，帶有變淡變回來的特效 (延遲1秒開始，錯開動畫) -->
+                    <div class="text-[--btn-red] text-xl mx-2 animate-fade-pulse" style="animation-delay: 1s;">✱</div>
+                </div>
+            </div>
+
+            <!-- Buttons Stack (按鈕框線改回黑色，顏色改為高飽和亮色) -->
+            <div class="w-full space-y-4 mt-2">
+                
+                <!-- 按鈕 1: Bright Red - 體驗課程 -->
+                <!-- **體驗課程介紹與預約網址：已設定為 Google 表單連結** -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpijoiY34ygRUF9RasoqeH7icGHDK5tGeHV21KpU0giVDX3A/viewform" class="block group relative" target="_blank">
+                    <!-- Black shadow layer -->
+                    <div class="absolute inset-0 bg-black translate-x-[6px] translate-y-[6px] rounded-full"></div>
+                    <!-- Main button (使用黑色邊框 class) -->
+                    <div class="relative w-full bg-[--btn-red] neo-border-button rounded-full p-4 flex items-center justify-between hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:translate-x-[6px] active:translate-y-[6px]">
+                        <!-- 按鈕文字使用 Noto Sans TC 粗體 -->
+                        <span class="font-bold text-black text-sm md:text-base tracking-wide mx-auto text-center">＊體驗課程 (課程介紹、預約)</span>
+                        <i class="fa-solid fa-ellipsis-vertical text-black opacity-50 absolute right-4"></i>
+                    </div>
+                </a>
+
+                <!-- 按鈕 2: Bright Orange - 大型吊燈體驗課 -->
+                <!-- **大型吊燈體驗課網址：已設定為 Google 表單連結** -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScfu3b5sjiNr1-Eg0rUO0Ie3dWKw0Xu_MBSAp2HuaBXW-N59Q/viewform" class="block group relative" target="_blank">
+                    <!-- Black shadow layer -->
+                    <div class="absolute inset-0 bg-black translate-x-[6px] translate-y-[6px] rounded-full"></div>
+                    <!-- Main button (使用黑色邊框 class) -->
+                    <div class="relative w-full bg-[--btn-orange] neo-border-button rounded-full p-4 flex items-center justify-between hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:translate-x-[6px] active:translate-y-[6px]">
+                        <span class="font-bold text-black text-sm md:text-base tracking-wide mx-auto text-center">＊大型吊燈體驗課 (課程介紹、預約)</span>
+                        <i class="fa-solid fa-ellipsis-vertical text-black opacity-50 absolute right-4"></i>
+                    </div>
+                </a>
+
+                <!-- 按鈕 3: Bright Yellow - 官方 LINE -->
+                <!-- **官方 LINE 連結** -->
+                <a href="https://line.me/R/ti/p/@703hqblg" class="block group relative" target="_blank">
+                    <!-- Black shadow layer -->
+                    <div class="absolute inset-0 bg-black translate-x-[6px] translate-y-[6px] rounded-full"></div>
+                    <!-- Main button (使用黑色邊框 class) -->
+                    <div class="relative w-full bg-[--btn-yellow] neo-border-button rounded-full p-4 flex items-center justify-between hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:translate-x-[6px] active:translate-y-[6px]">
+                        <span class="font-bold text-black text-sm md:text-base tracking-wide mx-auto text-center">官方 LINE</span>
+                        <i class="fa-solid fa-ellipsis-vertical text-black opacity-50 absolute right-4"></i>
+                    </div>
+                </a>
+
+                <!-- 按鈕 4: Bright Green - 賣貨便/商品連結 -->
+                <!-- **商品賣貨便連結** -->
+                <a href="https://myship.7-11.com.tw/general/detail/GM2408101171329" class="block group relative" target="_blank">
+                    <!-- Black shadow layer -->
+                    <div class="absolute inset-0 bg-black translate-x-[6px] translate-y-[6px] rounded-full"></div>
+                    <!-- Main button (使用黑色邊框 class) -->
+                    <div class="relative w-full bg-[--btn-green] neo-border-button rounded-full p-4 flex items-center justify-between hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:translate-x-[6px] active:translate-y-[6px]">
+                        <span class="font-bold text-black text-sm md:text-base tracking-wide mx-auto text-center">奐奐HWÀN 商品賣貨便</span>
+                        <i class="fa-solid fa-ellipsis-vertical text-black opacity-50 absolute right-4"></i>
+                    </div>
+                </a>
+
+                <!-- 按鈕 5: Bright Blue - HWÀN-Map (地址或地圖連結) -->
+                <!-- **工作室地址或 Google Map 連結** -->
+                <a href="https://share.google/x2AfT9z1BwN3xBVxV" class="block group relative" target="_blank">
+                    <!-- Black shadow layer -->
+                    <div class="absolute inset-0 bg-black translate-x-[6px] translate-y-[6px] rounded-full"></div>
+                    <!-- Main button (使用黑色邊框 class) -->
+                    <div class="relative w-full bg-[--btn-blue] neo-border-button rounded-full p-4 flex items-center justify-between hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-100 active:translate-x-[6px] active:translate-y-[6px]">
+                        <div class="flex items-center gap-2 w-full justify-center relative">
+                            <!-- Cute black map pin icon (SVG) -->
+                            <div class="w-6 h-6 flex items-center justify-center">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-black">
+                                    <!-- Map Pin Outline -->
+                                    <path d="M12 2 C8 2 5 5 5 9 C5 14 12 22 12 22 C12 22 19 14 19 9 C19 5 16 2 12 2 Z"/>
+                                    <!-- Center Dot -->
+                                    <circle cx="12" cy="9" r="2" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="font-bold text-black text-sm md:text-base tracking-wide">HWÀN-Map</span>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical text-black opacity-50 absolute right-4"></i>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Footer Icon (Instagram icon) -->
+            <div class="mt-4 pb-2">
+                <!-- **Instagram 頁面連結** -->
+                <!-- NEW LINK: 使用最精簡的網址，避免被追蹤服務（如 Pinterest）劫持 -->
+                <a href="https://www.instagram.com/hwan.tw/" class="inline-block hover:scale-110 transition-transform duration-200" target="_blank">
+                    <!-- NEW: Added animate-fade-pulse to the SVG -->
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-[--btn-red] animate-fade-pulse" style="animation-delay: 0.5s;">
+                        <!-- Rough rectangular frame -->
+                        <rect x="4" y="4" width="32" height="32" rx="9" ry="9" />
+                        <!-- Rough center circle -->
+                        <circle cx="20" cy="20" r="7" />
+                        <!-- Rough, offset top-right dot -->
+                        <line x1="30" y1="8" x2="30" y2="8" stroke-width="5" />
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Simple JS to add random rotation to the stars on load for a "hand-placed" feel
+        document.addEventListener('DOMContentLoaded', () => {
+            // Note: The selector is general but the specific element is the one with the '✱' or '★' content.
+            const decorations = document.querySelectorAll('.animate-float, .animate-float-delayed, .animate-float-short');
+            decorations.forEach(deco => {
+                // This targets the floating decorations that might contain the star or asterisk
+                if (deco.textContent === '★' || deco.textContent === '✱' || deco.textContent === '✦') {
+                    const randomRot = Math.random() * 20 - 10; // -10 to 10 degrees
+                    // Since it already has animation, we primarily rely on the animation rotation
+                    // We only apply a slight initial random rotation for variety if needed.
+                    // For now, relying on CSS animation for the main effect.
+                    // deco.style.transform = `${deco.style.transform} rotate(${randomRot}deg)`; // This is complex with existing transform, better to rely on CSS
+                }
+            });
+        });
+    </script>
+</body>
+</html>
